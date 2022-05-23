@@ -11,6 +11,7 @@ phases:
   pre_build:
     commands:
       - echo Entered the pre_build phase...
+      - terraform validate
       - terraform init
   build:
     commands:
