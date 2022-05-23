@@ -4,7 +4,7 @@ provider "aws" {
 
 #creating role IAM
 
-resource "aws_iam_role" "lambda_function_role" {
+resource "aws_iam_role" "lambda_role" {
 name   = "Lambda_Function_Role"
 assume_role_policy = <<EOF
 {
@@ -51,7 +51,7 @@ EOF
 #attach iam policy to iam role
 
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
- role        = aws_iam_role.lambda_function_role.name
+ role        = aws_iam_role.lambda_role.name
  policy_arn  = aws_iam_policy.iam_policy_for_lambda.arn
 }
  
