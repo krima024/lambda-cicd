@@ -1,19 +1,23 @@
 version: 0.2
-phases:
-#   install:
-#     commands:
-# #       - wget -qO - terraform.gpg https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/terraform-archive-keyring.gpg
-# #       - sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/terraform-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/terraform.list
 
-# #       - sudo apt update
-#       - sudo apt install terraform
+phases:
+  install:
+    commands:
+      - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+      - unzip terraform_install.zip -d /usr/bin/
+      - chmod +x /usr/bin/terraform
+    finally:
+      - terraform --version
   pre_build:
     commands:
-#       - terraform version 
-      - terraform init
+      - echo Entered the pre_build phase...
+    finally:
+      - echo This always runs even if the login command fails
   build:
     commands:
-      - terraform plan
+      - echo Entered the build phase...
+    finally:
+      - echo This always runs even if the install command fails
   post_build:
     commands:
-      - terraform apply --auto-approve
+      - echo Entered the post_build phase...
