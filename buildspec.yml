@@ -11,13 +11,13 @@ phases:
   pre_build:
     commands:
       - echo Entered the pre_build phase...
-    finally:
-      - echo This always runs even if the login command fails
+      - terraform init
   build:
     commands:
       - echo Entered the build phase...
-    finally:
-      - echo This always runs even if the install command fails
+      - terraform plan
+
   post_build:
     commands:
       - echo Entered the post_build phase...
+      - terraform apply --auto-approve
