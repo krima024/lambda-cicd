@@ -3,22 +3,15 @@ version: 0.2
 phases:
   install:
     commands:
-      - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
-      - unzip terraform_install.zip -d /usr/bin/
-      - chmod +x /usr/bin/terraform
-    finally:
-      - terraform --version
+      - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+      - apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+      - apt install terraform
+
   pre_build:
     commands:
-      - echo Entered the pre_build phase...
-#       - terraform init
-#       - terraform validate
+      - terraform init
+      - terraform validate
+  
   build:
     commands:
-      - echo Entered the build phase...
       - terraform plan
-
-  post_build:
-    commands:
-      - echo Entered the post_build phase...
-      - terraform apply --auto-approve
