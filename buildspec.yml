@@ -9,7 +9,7 @@ phases:
 #       - sudo apt install terraform
   pre_build:
     commands:
-      - terraform version 
+#       - terraform version 
       - terraform init
   build:
     commands:
