@@ -1,14 +1,15 @@
 version: 0.2
 phases:
+install:
+   - sudo apt update
+   - sudo apt install terraform
   pre_build:
     commands:
+      - terraform version 
       - terraform init
-      - terraform validate
-  
   build:
     commands:
       - terraform plan
-
   post_build:
     commands:
       - terraform apply --auto-approve
